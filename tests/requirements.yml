@@ -1,0 +1,2 @@
+- src: https://github.com/mGageTechOps/ansible-role-cfn-sns.git
+  name: topic

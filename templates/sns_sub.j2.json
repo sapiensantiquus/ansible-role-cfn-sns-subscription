@@ -1,0 +1,48 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "{{ sns_sub_stack_description }}",
+  "Parameters":{
+    "Endpoint": {
+      "Type": "String"
+    },
+    "Protocol": {
+      "Type": "String"
+    },
+    "TopicArn": {
+      "Type": "String"
+    }
+  },
+  "Conditions": {
+    "UseEndpoint": { "Fn::Not": [ { "Fn::Equals": [ "", { "Ref" : "Endpoint" } ]}] },
+    "UseProtocol": { "Fn::Not": [ { "Fn::Equals": [ "", { "Ref" : "Protocol" } ]}] },
+    "UseTopicArn": { "Fn::Not": [ { "Fn::Equals": [ "", { "Ref" : "TopicArn" } ]}] }
+  },
+  "Resources": {
+    "Subscription": {
+      "Type" : "AWS::SNS::Subscription",
+      "Properties" : {
+        "Endpoint": {
+          "Fn::If" : [
+            "UseEndpoint",
+            {"Ref" : "Endpoint"},
+            {"Ref" : "AWS::NoValue"}
+          ]
+        },
+        "Protocol": {
+          "Fn::If" : [
+            "UseProtocol",
+            {"Ref" : "Protocol"},
+            {"Ref" : "AWS::NoValue"}
+          ]
+        },
+        "TopicArn": {
+          "Fn::If" : [
+            "UseTopicArn",
+            {"Ref" : "TopicArn"},
+            {"Ref" : "AWS::NoValue"}
+          ]
+        }
+      }
+    }
+  }
+}

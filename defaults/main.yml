@@ -1,0 +1,10 @@
+sns_sub_build_dir: "{{ playbook_dir }}/build"
+sns_sub_template_dest: "{{ sns_sub_build_dir }}/sns_sub.json"
+sns_sub_template_src: "sns_sub.j2.json"
+sns_sub_region: "{{ region | default('') }}"
+sns_sub_disable_rollback: False
+sns_sub_stack_state: present
+sns_sub_protocol: ""
+sns_sub_endpoint: ""
+sns_sub_topic_arn: ""
+sns_sub_stack_description: ""

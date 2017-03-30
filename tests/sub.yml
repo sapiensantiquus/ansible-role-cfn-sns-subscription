@@ -1,0 +1,10 @@
+sns_sub_stack_name: "ansible-role-cfn-sns-subscription-test"
+sns_topic_name: "{{ sns_sub_stack_name }}-topic"
+sns_stack_name: "{{ sns_topic_name }}"
+sns_tags:
+  "Name": "{{ sns_topic_name }}"
+sns_sub_protocol: "email"
+sns_sub_endpoint: "fakeemail@mgage.com"
+sns_sub_topic_arn: "{{ sns_stack_output.stack_outputs.SNSTopicARN }}"
+sns_sub_tags:
+  "Name": "{{ sns_sub_stack_name }}"

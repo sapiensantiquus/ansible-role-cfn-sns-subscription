@@ -1,0 +1,25 @@
+- name: Create necessary dirs
+  file:
+    state: directory
+    path: "{{ item }}"
+  with_items:
+    - "{{ sns_sub_build_dir }}"
+
+- name: Build the CFN template
+  template:
+    src: "{{ sns_sub_template_src }}"
+    dest: "{{ sns_sub_template_dest }}"
+
+- name: Deploy the stack (cluster)
+  cloudformation:
+    stack_name: "{{ sns_sub_stack_name }}"
+    template_parameters:
+      Endpoint: "{{ sns_sub_endpoint }}"
+      TopicArn: "{{ sns_sub_topic_arn }}"
+      Protocol: "{{ sns_sub_protocol }}"
+    region: "{{ sns_sub_region }}"
+    disable_rollback: "{{ sns_sub_disable_rollback }}"
+    template: "{{ sns_sub_template_dest }}"
+    state: "{{ sns_sub_stack_state }}"
+    tags: "{{ sns_sub_tags }}"
+  register: sns_sub_stack

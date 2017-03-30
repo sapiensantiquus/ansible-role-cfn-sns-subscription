@@ -1,0 +1,18 @@
+- name: Create
+  hosts: test
+  vars_files:
+    - "sub.yml"
+  roles:
+    - role: topic
+    - role: ansible-role-cfn-sns-subscription
+
+- name: Delete
+  hosts: test
+  vars_files:
+    - "sub.yml"
+  vars:
+    sns_stack_state: absent
+    sns_sub_stack_state: absent
+  roles:
+    - role: ansible-role-cfn-sns-subscription
+    - role: topic
